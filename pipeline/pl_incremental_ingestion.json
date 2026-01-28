@@ -5,11 +5,15 @@
 			{
 				"name": "AZ_SQL_to_datalake",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "current_timestamp",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "last_cdc_in_string",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -27,7 +31,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@concat('SELECT * FROM ',pipeline().parameters.schema,'.',pipeline().parameters.table,' WHERE ',pipeline().parameters.cdc, ' > ',formatDateTime(activity('lkp_last_cdc').output.firstRow.cdc,'yyy-MM-ddTHH:mm:ss'))",
+							"value": "SELECT *\nFROM @{pipeline().parameters.schema}.@{pipeline().parameters.table} \nWHERE @{pipeline().parameters.cdc} > CAST(@{variables('last_cdc')} AS DATETIME)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -112,8 +116,6 @@
 			{
 				"name": "current_timestamp",
 				"type": "SetVariable",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"secureOutput": false,
@@ -131,8 +133,6 @@
 			{
 				"name": "update_last_cdc",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "max_cdc",
@@ -207,8 +207,6 @@
 			{
 				"name": "max_cdc",
 				"type": "Script",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "AZ_SQL_to_datalake",
@@ -243,7 +241,7 @@
 				}
 			},
 			{
-				"name": "Set variable1",
+				"name": "last_cdc_in_string",
 				"type": "SetVariable",
 				"dependsOn": [
 					{
