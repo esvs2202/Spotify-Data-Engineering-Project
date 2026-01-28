@@ -5,15 +5,11 @@
 			{
 				"name": "AZ_SQL_to_datalake",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "current_timestamp",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "lkp_last_cdc",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -116,6 +112,8 @@
 			{
 				"name": "current_timestamp",
 				"type": "SetVariable",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"secureOutput": false,
@@ -133,6 +131,8 @@
 			{
 				"name": "update_last_cdc",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "max_cdc",
@@ -207,6 +207,8 @@
 			{
 				"name": "max_cdc",
 				"type": "Script",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "AZ_SQL_to_datalake",
@@ -238,6 +240,30 @@
 						}
 					],
 					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "lkp_last_cdc",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "last_cdc",
+					"value": {
+						"value": "@string(activity('lkp_last_cdc').output.firstRow.cdc)",
+						"type": "Expression"
+					}
 				}
 			}
 		],
