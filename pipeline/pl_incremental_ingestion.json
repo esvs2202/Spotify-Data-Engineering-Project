@@ -13,7 +13,7 @@
 						]
 					},
 					{
-						"activity": "last_cdc_in_string",
+						"activity": "lkp_last_cdc",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -31,7 +31,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT *\nFROM @{pipeline().parameters.schema}.@{pipeline().parameters.table} \nWHERE @{pipeline().parameters.cdc} > CAST(@{variables('last_cdc')} AS DATETIME)",
+							"value": "SELECT *\nFROM @{pipeline().parameters.schema}.@{pipeline().parameters.table} \nWHERE @{pipeline().parameters.cdc} > CAST(@{activity('lkp_last_cdc').output.firstRow.cdc} AS DATETIME)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -238,30 +238,6 @@
 						}
 					],
 					"scriptBlockExecutionTimeout": "02:00:00"
-				}
-			},
-			{
-				"name": "last_cdc_in_string",
-				"type": "SetVariable",
-				"dependsOn": [
-					{
-						"activity": "lkp_last_cdc",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"variableName": "last_cdc",
-					"value": {
-						"value": "@string(activity('lkp_last_cdc').output.firstRow.cdc)",
-						"type": "Expression"
-					}
 				}
 			}
 		],
