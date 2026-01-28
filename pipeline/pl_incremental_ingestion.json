@@ -31,7 +31,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT *\nFROM @{pipeline().parameters.schema}.@{pipeline().parameters.table}\nWHERE @{pipeline().parameters.cdc} > CAST(\"@{activity('lkp_last_cdc').output.firstRow.cdc}\" AS DATETIME)",
+							"value": "SELECT *\nFROM @{pipeline().parameters.schema}.@{pipeline().parameters.table}\nWHERE @{pipeline().parameters.cdc} > @{activity('lkp_last_cdc').output.firstRow.cdc}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
