@@ -93,12 +93,21 @@
 					"source": {
 						"type": "JsonSource",
 						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
+							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "JsonReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_json_cdc",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "bronze",
+							"folder": "cdc",
+							"file": "cdc.json"
 						}
 					},
 					"firstRowOnly": true
