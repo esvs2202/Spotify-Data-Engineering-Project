@@ -7,16 +7,13 @@
 		},
 		"parameters": {
 			"container": {
-				"type": "string",
-				"defaultValue": "bronze"
+				"type": "string"
 			},
 			"folder": {
-				"type": "string",
-				"defaultValue": "cdc"
+				"type": "string"
 			},
 			"file": {
-				"type": "string",
-				"defaultValue": "cdc.json"
+				"type": "string"
 			}
 		},
 		"annotations": [],
