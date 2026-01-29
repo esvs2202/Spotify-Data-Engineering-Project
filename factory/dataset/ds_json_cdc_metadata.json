@@ -20,7 +20,7 @@
 		"type": "Json",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
+				"type": "AzureBlobFSLocation",
 				"fileName": {
 					"value": "@dataset().file",
 					"type": "Expression"
@@ -29,7 +29,7 @@
 					"value": "@dataset().folder",
 					"type": "Expression"
 				},
-				"container": {
+				"fileSystem": {
 					"value": "@dataset().container",
 					"type": "Expression"
 				}
