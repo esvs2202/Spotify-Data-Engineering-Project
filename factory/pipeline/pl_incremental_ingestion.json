@@ -31,23 +31,20 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@concat('SELECT * FROM ','[',pipeline().parameters.schema,'].[',pipeline().parameters.table,'] ','WHERE ',pipeline().parameters.cdc,' > ''', activity('lkp_last_cdc').output.firstRow.cdc,'''')",
+							"value": "@concat('SELECT * FROM ',\n'[',pipeline().parameters.schema,'].[',pipeline().parameters.table,'] ',\n'WHERE ',pipeline().parameters.cdc,' > ''', activity('lkp_last_cdc').output.firstRow.cdc,'''')",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"sink": {
-						"type": "ParquetSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "ParquetWriteSettings"
-						}
-					},
 					"enableStaging": false
-				}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_az_sql",
+						"type": "DatasetReference"
+					}
+				]
 			},
 			{
 				"name": "lkp_last_cdc",
