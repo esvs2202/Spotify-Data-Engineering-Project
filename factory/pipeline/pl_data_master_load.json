@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.loop_input",
+						"type": "Expression"
+					},
 					"isSequential": false,
 					"activities": [
 						{
@@ -32,7 +36,7 @@
 		],
 		"parameters": {
 			"loop_input": {
-				"type": "string",
+				"type": "array",
 				"defaultValue": [
 					{
 						"schema": "dbo",
