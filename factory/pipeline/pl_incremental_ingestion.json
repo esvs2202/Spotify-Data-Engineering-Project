@@ -31,7 +31,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@concat('SELECT * FROM ',\n'[',pipeline().parameters.schema,'].[',pipeline().parameters.table,'] ',\n'WHERE ',pipeline().parameters.cdc,' > ''', activity('lkp_last_cdc').output.firstRow.cdc,'''')",
+							"value": "@concat('SELECT * FROM ',\n'[',pipeline().parameters.schema,'].[',pipeline().parameters.table,'] ',\n'WHERE ',pipeline().parameters.cdc,' > ''', if(empty(pipeline().parameters.from_date),activity('lkp_last_cdc').output.firstRow.cdc,pipeline().parameters.from_date),'''')",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -301,6 +301,9 @@
 				"type": "string"
 			},
 			"cdc": {
+				"type": "string"
+			},
+			"from_date": {
 				"type": "string"
 			}
 		},
