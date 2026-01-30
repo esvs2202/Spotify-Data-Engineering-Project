@@ -83,7 +83,7 @@
 					{
 						"schema": "dbo",
 						"table": "FactStream",
-						"cdc": "stream_timestampa",
+						"cdc": "stream_timestamp",
 						"from_date": ""
 					}
 				]
