@@ -1,0 +1,25 @@
+resources:
+  jobs:
+    Spotify_ETL:
+      name: "spotify_etl_main_pipeline"
+      tasks:
+        - task_key: Landing_to_Bronze
+          pipeline_task:
+            pipeline_id: 674194f2-8c69-483c-9df1-38de6969ca48
+            full_refresh: false
+          max_retries: 1
+          min_retry_interval_millis: 60000
+        - task_key: Bronze_to_Silver
+          depends_on:
+            - task_key: Landing_to_Bronze
+          pipeline_task:
+            pipeline_id: f8818c8c-019f-428a-ae3e-fea876960d50
+            full_refresh: false
+        - task_key: Silver_to_Gold
+          depends_on:
+            - task_key: Bronze_to_Silver
+          pipeline_task:
+            pipeline_id: c7daadba-e256-4880-914d-5ffc3c7ed3ba
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
