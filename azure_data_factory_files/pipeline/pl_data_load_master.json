@@ -1,5 +1,5 @@
 {
-	"name": "pl_main_data_ingestion",
+	"name": "pl_data_load_master",
 	"properties": {
 		"activities": [
 			{
