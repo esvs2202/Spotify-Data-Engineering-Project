@@ -1,5 +1,4 @@
 from pyspark import pipelines as dp 
-from pyspark.sql.functions import col
 
 # creating Silver tables for each data entity which accomodate the clean data
 
