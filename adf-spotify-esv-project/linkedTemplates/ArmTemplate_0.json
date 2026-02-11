@@ -536,13 +536,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pl_main_data_ingestion')]",
+			"name": "[concat(parameters('factoryName'), '/pl_data_load_master')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "For each entity",
+						"name": "Data Ingestion For each entity",
 						"type": "ForEach",
 						"dependsOn": [],
 						"userProperties": [],
