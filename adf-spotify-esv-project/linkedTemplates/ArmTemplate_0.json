@@ -263,7 +263,7 @@
 								"referenceName": "ds_parquet_dynamic",
 								"type": "DatasetReference",
 								"parameters": {
-									"container": "bronze",
+									"container": "landing",
 									"folder": {
 										"value": "@pipeline().parameters.table",
 										"type": "Expression"
@@ -304,7 +304,7 @@
 								"referenceName": "ds_json_cdc_metadata",
 								"type": "DatasetReference",
 								"parameters": {
-									"container": "bronze",
+									"container": "landing",
 									"folder": {
 										"value": "@concat(pipeline().parameters.table,'/','cdc')",
 										"type": "Expression"
@@ -367,7 +367,7 @@
 											"referenceName": "ds_parquet_dynamic",
 											"type": "DatasetReference",
 											"parameters": {
-												"container": "bronze",
+												"container": "landing",
 												"folder": {
 													"value": "@pipeline().parameters.table",
 													"type": "Expression"
@@ -441,7 +441,7 @@
 											"referenceName": "ds_json_cdc_metadata",
 											"type": "DatasetReference",
 											"parameters": {
-												"container": "bronze",
+												"container": "landing",
 												"folder": {
 													"value": "@concat(pipeline().parameters.table,'/','cdc')",
 													"type": "Expression"
@@ -455,7 +455,7 @@
 											"referenceName": "ds_json_cdc_metadata",
 											"type": "DatasetReference",
 											"parameters": {
-												"container": "bronze",
+												"container": "landing",
 												"folder": {
 													"value": "@concat(pipeline().parameters.table,'/','cdc')",
 													"type": "Expression"
@@ -536,7 +536,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pl_data_master_load')]",
+			"name": "[concat(parameters('factoryName'), '/pl_main_data_ingestion')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
