@@ -1,5 +1,5 @@
 {
-	"name": "pl_main_data_ingestion",
+	"name": "pl_data_load_master",
 	"properties": {
 		"activities": [
 			{
@@ -50,26 +50,6 @@
 						}
 					]
 				}
-			},
-			{
-				"name": "data_orchestration",
-				"type": "DatabricksJob",
-				"dependsOn": [
-					{
-						"activity": "Data Ingestion For each entity",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": []
 			}
 		],
 		"parameters": {
